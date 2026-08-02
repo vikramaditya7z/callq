@@ -1,11 +1,10 @@
-# AI Earnings Call Analyzer
+# CallQ
 
-AI Earnings Call Analyzer is a portfolio-quality full-stack application that
-turns earnings call transcripts into structured investor insights.
-
-Version 1 focuses on a single-document workflow: a user pastes an earnings call
-transcript, the FastAPI backend sends a structured prompt to Gemini, and the
-React frontend displays the resulting analysis.
+CallQ is an AI-powered financial research platform that transforms earnings call
+transcripts into structured investor intelligence. It automatically extracts
+executive summaries, opportunities, risks, management outlook, and key business
+themes through a clean full-stack web application built with React, FastAPI, and
+Google's Gemini API.
 
 ## Motivation
 

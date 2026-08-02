@@ -2,7 +2,7 @@
 
 ## Project Name
 
-AI Earnings Call Analyzer
+CallQ
 
 ---
 

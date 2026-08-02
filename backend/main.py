@@ -10,7 +10,7 @@ from backend.api.health import router as health_router
 
 
 app = FastAPI(
-    title="AI Earnings Call Analyzer",
+    title="CallQ",
     description="Backend API for analyzing earnings call transcripts.",
     version="0.1.0",
 )

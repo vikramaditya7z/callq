@@ -1,2 +1,1 @@
-"""Backend package for the AI Earnings Call Analyzer."""
-
+"""Backend package for CallQ."""
