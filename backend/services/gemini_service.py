@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+import http.client
+import socket
 import urllib.error
 import urllib.request
 from typing import Any
@@ -110,8 +112,14 @@ def _post_json(
         raise GeminiAPIError(_build_http_error_message(error)) from error
     except urllib.error.URLError as error:
         raise GeminiAPIError("Could not reach Gemini API.") from error
+    except socket.timeout as error:
+        raise GeminiAPIError("Gemini API request timed out.") from error
     except TimeoutError as error:
         raise GeminiAPIError("Gemini API request timed out.") from error
+    except http.client.HTTPException as error:
+        raise GeminiAPIError("Gemini API request failed due to protocol error.") from error
+    except OSError as error:
+        raise GeminiAPIError("Gemini API request failed due to network error.") from error
 
     try:
         parsed_body = json.loads(response_body)

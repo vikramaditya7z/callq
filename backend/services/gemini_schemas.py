@@ -80,6 +80,88 @@ GEMINI_ANALYSIS_RESPONSE_SCHEMA: dict[str, Any] = {
                 "maxLength": MAX_INSIGHT_LENGTH,
             },
         },
+        "financial_metrics": {
+            "type": "array",
+            "description": "Explicitly stated financial metrics from the transcript.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Metric name, such as revenue, margin, ARR, or cash flow.",
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Exact reported value and units from the transcript.",
+                    },
+                    "change": {
+                        "type": "string",
+                        "nullable": True,
+                        "description": "Reported comparison or change, if provided.",
+                    },
+                    "period": {
+                        "type": "string",
+                        "nullable": True,
+                        "description": "Reported period for the metric, if provided.",
+                    },
+                },
+                "required": ["name", "value", "change", "period"],
+            },
+        },
+        "guidance": {
+            "type": "array",
+            "description": "Explicit forward-looking guidance from management.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "type": "string",
+                        "description": "Guided metric or business measure.",
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Reported target, range, value, or qualitative guidance.",
+                    },
+                    "period": {
+                        "type": "string",
+                        "description": "Future period the guidance applies to.",
+                    },
+                    "context": {
+                        "type": "string",
+                        "nullable": True,
+                        "description": "Useful supporting context from management, if provided.",
+                    },
+                },
+                "required": ["metric", "value", "period", "context"],
+            },
+        },
+        "management_signals": {
+            "type": "object",
+            "description": "Management tone and concrete signals from the call.",
+            "properties": {
+                "overall_tone": {
+                    "type": "string",
+                    "description": "Overall management tone supported by the transcript.",
+                },
+                "positive_signals": {
+                    "type": "array",
+                    "description": "Concrete positive management signals.",
+                    "items": {
+                        "type": "string",
+                        "maxLength": MAX_INSIGHT_LENGTH,
+                    },
+                },
+                "watch_signals": {
+                    "type": "array",
+                    "description": "Concrete cautionary or watch signals.",
+                    "items": {
+                        "type": "string",
+                        "maxLength": MAX_INSIGHT_LENGTH,
+                    },
+                },
+            },
+            "required": ["overall_tone", "positive_signals", "watch_signals"],
+        },
     },
     "required": [
         "executive_summary",
@@ -89,5 +171,8 @@ GEMINI_ANALYSIS_RESPONSE_SCHEMA: dict[str, Any] = {
         "opportunities",
         "management_outlook",
         "themes",
+        "financial_metrics",
+        "guidance",
+        "management_signals",
     ],
 }

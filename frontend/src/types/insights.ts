@@ -7,10 +7,24 @@ export type InsightTone =
   | "outlook"
   | "theme";
 
-export type InsightSection = {
-  title: string;
-  responseKey: keyof AnalysisResponse;
-  tone: InsightTone;
+export type FinancialMetric = {
+  name: string;
+  value: string;
+  change: string | null;
+  period: string | null;
+};
+
+export type GuidanceItem = {
+  metric: string;
+  value: string;
+  period: string;
+  context: string | null;
+};
+
+export type ManagementSignals = {
+  overall_tone: string;
+  positive_signals: string[];
+  watch_signals: string[];
 };
 
 export type AnalysisResponse = {
@@ -21,6 +35,24 @@ export type AnalysisResponse = {
   opportunities: string[];
   management_outlook: string;
   themes: string[];
+  financial_metrics: FinancialMetric[];
+  guidance: GuidanceItem[];
+  management_signals: ManagementSignals;
+};
+
+type DisplayedInsightKey =
+  | "executive_summary"
+  | "positives"
+  | "negatives"
+  | "risks"
+  | "opportunities"
+  | "management_outlook"
+  | "themes";
+
+export type InsightSection = {
+  title: string;
+  responseKey: DisplayedInsightKey;
+  tone: InsightTone;
 };
 
 export const insightSections: InsightSection[] = [

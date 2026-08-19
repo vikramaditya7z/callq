@@ -4,6 +4,7 @@ import { InsightsGrid } from "./components/InsightsGrid";
 import { LoadingPanel } from "./components/LoadingPanel";
 import { PageHeader } from "./components/PageHeader";
 import { TranscriptPanel } from "./components/TranscriptPanel";
+import { V15Insights } from "./components/V15Insights";
 import { analyzeTranscript } from "./services/api";
 import type { AnalysisResponse } from "./types/insights";
 
@@ -52,6 +53,7 @@ export default function App() {
       />
       <LoadingPanel visible={loading} />
       <InsightsGrid analysis={analysis} loading={loading} />
+      <V15Insights analysis={analysis} loading={loading} />
     </main>
   );
 }

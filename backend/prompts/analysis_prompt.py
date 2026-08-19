@@ -20,7 +20,28 @@ The JSON object must match this exact schema:
   "risks": ["string"],
   "opportunities": ["string"],
   "management_outlook": "string",
-  "themes": ["string"]
+  "themes": ["string"],
+  "financial_metrics": [
+    {
+      "name": "string",
+      "value": "string",
+      "change": "string or null",
+      "period": "string or null"
+    }
+  ],
+  "guidance": [
+    {
+      "metric": "string",
+      "value": "string",
+      "period": "string",
+      "context": "string or null"
+    }
+  ],
+  "management_signals": {
+    "overall_tone": "string",
+    "positive_signals": ["string"],
+    "watch_signals": ["string"]
+  }
 }
 
 Field guidance:
@@ -59,15 +80,44 @@ Field guidance:
    - Examples: "Revenue growth", "Margin pressure", "AI investment",
      "Cost discipline", or "International expansion".
 
+8. financial_metrics
+   - Extract explicitly stated material financial metrics.
+   - Examples: revenue, growth rates, margins, cash flow, ARR, retention,
+     customer metrics, bookings, or profitability measures.
+   - Preserve the exact reported value, units, comparison/change, and period
+     when available.
+   - Preserve numeric wording exactly as written in the transcript. For example,
+     do not convert "seven" to "7" or "$1.02 billion" to "$1.0 billion".
+   - Use null for change or period when not stated.
+   - Do not calculate, normalize, or invent metrics.
+   - Return an empty array if no explicit financial metrics are provided.
+
+9. guidance
+   - Extract explicit forward-looking management guidance only.
+   - Capture the metric, reported target/value, applicable period, and useful
+     context when available.
+   - Do not treat vague optimism, analyst expectations, or historical results as
+     management guidance.
+   - Do not invent guidance when none is explicitly provided.
+   - Return an empty array if no explicit guidance is provided.
+
+10. management_signals
+   - Identify the overall management tone supported by the transcript.
+   - Include concrete positive signals and watch signals from management
+     commentary.
+   - Do not infer unsupported claims.
+   - Use empty arrays when positive or watch signals are not clearly supported.
+
 Output rules:
 
-- Use exactly the seven schema fields listed above.
+- Use exactly the ten schema fields listed above.
 - Do not add extra fields.
 - Do not omit any fields.
-- Every list must contain at least one string.
+- Existing V1 list fields must contain at least one string.
 - Keep list items concise and readable.
 - Avoid duplicate points.
 - Do not fabricate facts, numbers, or claims not present in the transcript.
+- Do not round, normalize, reformat, or convert reported numbers.
 - If a section has limited evidence, provide the best supported statement from the
   transcript instead of inventing content.
 - Use neutral, investor-focused language.

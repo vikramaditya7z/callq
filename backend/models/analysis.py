@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -43,8 +43,40 @@ class EarningsAnalysisRequest(BaseModel):
         return cleaned_value
 
 
+class FinancialMetric(BaseModel):
+    """Financial metric extracted from an earnings call transcript."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    name: str
+    value: str
+    change: Optional[str]
+    period: Optional[str]
+
+
+class GuidanceItem(BaseModel):
+    """Forward-looking guidance item extracted from management commentary."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    metric: str
+    value: str
+    period: str
+    context: Optional[str]
+
+
+class ManagementSignals(BaseModel):
+    """Structured view of management tone and notable signals."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    overall_tone: str
+    positive_signals: list[str]
+    watch_signals: list[str]
+
+
 class EarningsAnalysisResponse(BaseModel):
-    """Structured Version 1 earnings call analysis output."""
+    """Structured earnings call analysis output."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -89,6 +121,18 @@ class EarningsAnalysisResponse(BaseModel):
         min_length=1,
         max_length=MAX_INSIGHT_ITEMS,
         description="Major recurring themes from the earnings call.",
+    )
+    financial_metrics: list[FinancialMetric] = Field(
+        ...,
+        description="Financial metrics extracted from the transcript.",
+    )
+    guidance: list[GuidanceItem] = Field(
+        ...,
+        description="Forward-looking guidance items discussed by management.",
+    )
+    management_signals: ManagementSignals = Field(
+        ...,
+        description="Management tone and notable positive or watch signals.",
     )
 
     @field_validator(
@@ -148,7 +192,7 @@ class ErrorResponse(BaseModel):
         max_length=500,
         description="Safe human-readable error message.",
     )
-    details: dict[str, Any] | None = Field(
+    details: Optional[dict[str, Any]] = Field(
         default=None,
         description="Optional safe context about the error.",
     )
