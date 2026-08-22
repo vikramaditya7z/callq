@@ -82,11 +82,17 @@ function FinancialMetricItem({ metric }: { metric: FinancialMetric }) {
   return (
     <div className="metric-item">
       <p className="metric-name">{metric.name}</p>
-      <p className="metric-value">{metric.value}</p>
-      <div className="metric-meta">
-        {metric.change ? <span>{metric.change}</span> : null}
-        {metric.period ? <span>{metric.period}</span> : null}
+      <div className="metric-value-container">
+        <span className="metric-value">{metric.value}</span>
+        {metric.change ? <span className="metric-pill">{metric.change}</span> : null}
       </div>
+      {metric.period ? (
+        <div className="metric-period-container">
+          <span className="metric-pill">
+            {metric.period.charAt(0).toUpperCase() + metric.period.slice(1)}
+          </span>
+        </div>
+      ) : null}
     </div>
   );
 }
