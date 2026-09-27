@@ -1,0 +1,71 @@
+{
+  "fixture_id": "industrial_manufacturing_q2_2026",
+  "company_name": "Apex Industrial Dynamics",
+  "reporting_period": "Q2 2026",
+  "description": "Manufacturing earnings call showing top-line revenue expansion alongside operating margin contraction from input cost inflation.",
+  "current_transcript": "Operator: Welcome to the Apex Industrial Dynamics second quarter 2026 earnings conference call. During the second quarter, total revenue reached $500 million, reflecting steady volume demand across equipment segments. Operating margin for the quarter was 12 percent. Free cash flow generated during the quarter was $40 million. Raw material inflation and transportation freight surcharges created margin headwinds throughout the period. We continue to execute cost containment initiatives.",
+  "historical_transcripts": [
+    {
+      "label": "Q2 2025",
+      "transcript": "Operator: Welcome to the Apex Industrial Dynamics Q2 2025 earnings call. For the second quarter of 2025, total revenue was $450 million. Operating margin for the prior year quarter was 16 percent. Free cash flow for the period was $55 million. Manufacturing throughput remained stable."
+    }
+  ],
+  "metadata": {
+    "sector": "Industrials / Heavy Equipment",
+    "evaluation_focus": ["revenue_growth", "margin_contraction_points", "cash_flow_growth"]
+  },
+  "ground_truth": {
+    "expected_facts": [
+      {
+        "metric_key": "revenue",
+        "reported_value": "$500 million",
+        "source_id": "current",
+        "unit": "USD",
+        "period": "Q2 2026",
+        "period_type": "quarterly"
+      },
+      {
+        "metric_key": "operating_margin",
+        "reported_value": "12 percent",
+        "source_id": "current",
+        "unit": "percent",
+        "period": "Q2 2026",
+        "period_type": "quarterly"
+      },
+      {
+        "metric_key": "revenue",
+        "reported_value": "$450 million",
+        "source_id": "historical_1_q2-2025",
+        "unit": "USD",
+        "period": "Q2 2025",
+        "period_type": "quarterly"
+      },
+      {
+        "metric_key": "operating_margin",
+        "reported_value": "16 percent",
+        "source_id": "historical_1_q2-2025",
+        "unit": "percent",
+        "period": "Q2 2025",
+        "period_type": "quarterly"
+      }
+    ],
+    "expected_guidance": [],
+    "expected_calculations": [
+      {
+        "calculation_type": "percentage_change",
+        "status": "valid",
+        "expected_result": 11.11,
+        "expected_unit": "percent"
+      },
+      {
+        "calculation_type": "margin_change",
+        "status": "valid",
+        "expected_result": -4.0,
+        "expected_unit": "percentage_points"
+      }
+    ],
+    "expected_evidence_gaps": [],
+    "prohibited_claims": ["sell recommendation"],
+    "require_empty_guidance": false
+  }
+}

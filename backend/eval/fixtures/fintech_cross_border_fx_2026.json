@@ -1,0 +1,53 @@
+{
+  "fixture_id": "fintech_cross_border_fx_2026",
+  "company_name": "Nexus Global Payments",
+  "reporting_period": "Q1 2026",
+  "description": "Cross-border financial services transcript with US dollar and European currency disclosures testing honest comparability rejection.",
+  "current_transcript": "Operator: Welcome to the Nexus Global Payments first quarter 2026 financial results conference call. During the first quarter, reported revenue for our North American operations was $120 million, reflecting steady domestic consumer volume growth. Merchant transaction processing remained resilient across retail segments. Management continues to invest in payment infrastructure while maintaining disciplined cost management across all business lines.",
+  "historical_transcripts": [
+    {
+      "label": "Q1 2025 European Division",
+      "transcript": "Operator: Welcome to Nexus Global Payments Q1 2025 European Division conference call. Reported revenue for our European operations was €100 million for the quarter. Regional commercial activities and transaction processing were stable during the prior period. Operating expenses remained aligned with strategic targets."
+    }
+  ],
+  "metadata": {
+    "sector": "Fintech / Payments",
+    "evaluation_focus": ["currency_incompatibility_gate", "unavailable_comparisons"]
+  },
+  "ground_truth": {
+    "expected_facts": [
+      {
+        "metric_key": "revenue",
+        "reported_value": "$120 million",
+        "source_id": "current",
+        "unit": "USD",
+        "period": "Q1 2026",
+        "period_type": "quarterly"
+      },
+      {
+        "metric_key": "revenue",
+        "reported_value": "€100 million",
+        "source_id": "historical_1_q1-2025-european-division",
+        "unit": "EUR",
+        "period": "Q1 2025",
+        "period_type": "quarterly"
+      }
+    ],
+    "expected_guidance": [],
+    "expected_calculations": [
+      {
+        "calculation_type": "percentage_change",
+        "status": "unavailable",
+        "expected_reason_substring": "incompatible"
+      },
+      {
+        "calculation_type": "absolute_change",
+        "status": "unavailable",
+        "expected_reason_substring": "incompatible"
+      }
+    ],
+    "expected_evidence_gaps": [],
+    "prohibited_claims": ["investment advice"],
+    "require_empty_guidance": false
+  }
+}
