@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.api.analysis import router as analysis_router
 from backend.api.health import router as health_router
+from backend.api.v2_analysis import router as v2_analysis_router
 
 
 app = FastAPI(
@@ -32,3 +33,4 @@ app.add_middleware(
 
 app.include_router(health_router)
 app.include_router(analysis_router)
+app.include_router(v2_analysis_router)

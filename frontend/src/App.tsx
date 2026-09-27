@@ -5,10 +5,12 @@ import { LoadingPanel } from "./components/LoadingPanel";
 import { PageHeader } from "./components/PageHeader";
 import { TranscriptPanel } from "./components/TranscriptPanel";
 import { V15Insights } from "./components/V15Insights";
+import { V2Analysis } from "./components/V2Analysis";
 import { analyzeTranscript } from "./services/api";
 import type { AnalysisResponse } from "./types/insights";
 
 export default function App() {
+  const [mode, setMode] = useState<"v15" | "v2">("v15");
   const [transcript, setTranscript] = useState("");
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
   const [loading, setLoading] = useState(false);
@@ -43,17 +45,39 @@ export default function App() {
   return (
     <main className="app-shell">
       <PageHeader />
-      <TranscriptPanel
-        transcript={transcript}
-        loading={loading}
-        canAnalyze={canAnalyze}
-        error={error}
-        onTranscriptChange={setTranscript}
-        onAnalyze={handleAnalyze}
-      />
-      <LoadingPanel visible={loading} />
-      <InsightsGrid analysis={analysis} loading={loading} />
-      <V15Insights analysis={analysis} loading={loading} />
+      <nav className="analysis-mode-switcher" aria-label="Analysis mode">
+        <button
+          className={mode === "v15" ? "mode-button mode-button-active" : "mode-button"}
+          type="button"
+          onClick={() => setMode("v15")}
+        >
+          V1.5 insights
+        </button>
+        <button
+          className={mode === "v2" ? "mode-button mode-button-active" : "mode-button"}
+          type="button"
+          onClick={() => setMode("v2")}
+        >
+          V2 reasoning
+        </button>
+      </nav>
+      {mode === "v15" ? (
+        <>
+          <TranscriptPanel
+            transcript={transcript}
+            loading={loading}
+            canAnalyze={canAnalyze}
+            error={error}
+            onTranscriptChange={setTranscript}
+            onAnalyze={handleAnalyze}
+          />
+          <LoadingPanel visible={loading} />
+          <InsightsGrid analysis={analysis} loading={loading} />
+          <V15Insights analysis={analysis} loading={loading} />
+        </>
+      ) : (
+        <V2Analysis />
+      )}
     </main>
   );
 }
