@@ -12,7 +12,7 @@ from backend.api.health import router as health_router
 app = FastAPI(
     title="CallQ",
     description="Backend API for analyzing earnings call transcripts.",
-    version="0.1.0",
+    version="1.5.0",
 )
 
 app.add_middleware(
